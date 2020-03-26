@@ -38,7 +38,6 @@ public class Main {
 		empregados.stream().forEach(emp -> {
 			System.out.println(emp.getNome());
 		});
-		
 		/**
 		 * minha var = minha lista de empregados + função Stream() + capturar Algo que 
 		 * no caso é double (mapToDouble) + como é uma função aguarda o retorno que no
@@ -46,8 +45,10 @@ public class Main {
 		 *  um método para somar que é o "sum()";
 		 */
 		double salarioTotal = empregados.stream().mapToDouble(emp -> emp.getSalario()).sum();
-
 		System.out.println("Salário Total (R$): " + salarioTotal);
-	}
 
+		Mensageiro mensageiro = (mensagem) ->
+		System.out.println("Mensagem da Expressão Lambda: " + mensagem);
+		mensageiro.emitirMensagem("Olá, mundo!");
+	}
 }
