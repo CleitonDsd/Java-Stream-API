@@ -2,9 +2,12 @@ package br.com.treinaweb.java.streams;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class Main {
 
@@ -50,8 +53,10 @@ public class Main {
 
 		Mensageiro mensageiro = (mensagem) -> System.out.println("Mensagem da Expressão Lambda: " + mensagem);
 		mensageiro.emitirMensagem("Olá, mundo!");
+		System.out.println("");
 
-		// ===============================================
+		// =============================================== INTERFACES FUNCIONAIS
+		// ===============================
 		// Consumert <tipo de dado>
 		// Entra uma parametro e não retorna nada
 		System.out.println("Execução do CONSUMER");
@@ -60,12 +65,14 @@ public class Main {
 		};
 		consumer.accept(new Empregado(10, "Cleiton", 1000, "TI"));
 
+		System.out.println("");
 		// Functions
 		System.out.println("Execução da Function");
 		Function<Empregado, Double> function = (emp) -> emp.getSalario() * 10;
 		double novoSalario = function.apply(new Empregado(1000, "Cleiton", 1000, "TI"));
 		System.out.println(novoSalario);
 
+		System.out.println("");
 		// BinaryOperator
 		System.out.println("Execução do BinaryOperator: ");
 		BinaryOperator<Empregado> binaryOperator = (emp1, emp2) -> new Empregado(6, emp1.getNome() + emp2.getNome(),
@@ -73,40 +80,22 @@ public class Main {
 		Empregado novoEmpregado = binaryOperator.apply(new Empregado(0, "Cleiton", 1000, ""),
 				new Empregado(1, " Dsd", 10000, "TI"));
 		System.out.println(novoEmpregado.getNome() + ", R$ " + novoEmpregado.getSalario());
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
+		System.out.println("");
+		// Predicate = retorna booleanos
+		Predicate<Empregado> predicate = (emp) -> emp.getNome().endsWith("Dsd");
+		boolean terminaComDsd = predicate.test(new Empregado(0, "Cleiton Dsd", 1000, "TI"));
+		System.out.println(terminaComDsd);
+
+		System.out.println("");
+		// Supplier -> não recebe parametro mas sempre retorna um dado
+		System.out.println("Execução do Supplier");
+		Supplier<Empregado> suplier = () -> new Empregado(new Random().nextInt(), "Cleiton", 0, "");
+		Empregado emp1 = suplier.get();
+		System.out.println(emp1.getId());
+		System.out.println("");
+		Empregado emp2 = suplier.get();
+		System.out.println(emp2.getId());
 
 	}
 }
